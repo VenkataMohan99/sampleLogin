@@ -11,19 +11,19 @@ app.use(cors());
 app.listen(9985,()=>{
     console.log('listening to the port 9985');
 })
-// const storage = multer.diskStorage({
-//   destination: function (req, file, cb) {
-//     cb(null, 'uploads')
-//   },
-//   filename: function (req, file, cb) {
-//     cb(null, Date.now()+ " "+file.originalname);
-//   }
-// })
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'uploads')
+  },
+  filename: function (req, file, cb) {
+    cb(null, Date.now()+"-"+file.originalname);
+  }
+})
 
-// const uploads = multer({ storage: storage })
+const uploads = multer({ storage: storage })
 app.use(express.static(path.join(__dirname, './webclient/build')));
-const uploads=multer()
-;
+// const uploads=multer()
+app.use('/uploads',express.static('uploads'));
 let connection=async()=>{ 
 try{ 
 await mongoose.connect(`mongodb+srv://Mohan:${process.env.DB_PASSWORD}@cluster0.an77b3s.mongodb.net/sampleLogin`);
@@ -52,10 +52,14 @@ let userShema =new mongoose.Schema({
     password:{
         type:String,
         require:true
+    },
+    profilePic:{
+      type:String,
+      require:true
     }
 })
 let user =new mongoose.model('userDetails',userShema);   
-app.post("/signUp",uploads.none(),async(req,res)=>{
+app.post("/signUp",uploads.single("profilePic"),async(req,res)=>{
     console.log(req.body);
 
     let saveUserDetails=async()=>{
@@ -64,7 +68,8 @@ app.post("/signUp",uploads.none(),async(req,res)=>{
       let newUser=await new user({
         userName:req.body.userName,
         emailId:req.body.emailId,
-        password:hashedPassword
+        password:hashedPassword,
+        profilePic:req.file.path
       })
       await newUser.save();
       console.log("Data add to Data Base");  

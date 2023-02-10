@@ -15,6 +15,7 @@ function DashBoard() {
     <div>
       <h1>Dash Board</h1>
       <h1>Welcom {storeObj[1].data[0].userName}</h1>
+      <img src={storeObj[1].data[0].profilePic} alt='profile pic'></img>
     </div>
   )
 }
