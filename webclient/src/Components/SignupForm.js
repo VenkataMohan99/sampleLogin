@@ -14,7 +14,7 @@ function SignupForm() {
             method:'POST',
             body:sendData
         }
-        let rawData=await fetch('http://localhost:9985/signUp',reqOptions); 
+        let rawData=await fetch('/signUp',reqOptions); 
         let convertedData=await rawData.json();
         console.log(convertedData); 
         alert(convertedData.status); 

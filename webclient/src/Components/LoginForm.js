@@ -15,7 +15,7 @@ function LoginForm() {
             method:"POST",
             body:sendData
         }
-        let rawData=await fetch("http://localhost:9985/login",reqOptions);
+        let rawData=await fetch("/login",reqOptions);
         let convertedData=await rawData.json();
         console.log(convertedData);
         if(convertedData.login === true){  

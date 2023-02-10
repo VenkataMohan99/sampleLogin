@@ -4,6 +4,7 @@ const cors=require('cors');
 const bcrypt=require('bcrypt');
 const mongoose=require('mongoose');
 const dotenv=require('dotenv');
+const path=require("path");
 dotenv.config();
 const app=express();
 app.use(cors());
@@ -20,7 +21,7 @@ app.listen(9985,()=>{
 // })
 
 // const uploads = multer({ storage: storage })
-
+app.use(express.static(path.join(__dirname, './webclient/build')));
 const uploads=multer()
 ;
 let connection=async()=>{ 
