@@ -22,7 +22,6 @@ const storage = multer.diskStorage({
 
 const uploads = multer({ storage: storage })
 app.use(express.static(path.join(__dirname, './webclient/build')));
-app.use(express.static(path.join(__dirname,'./uploads'));
 // const uploads=multer()
 app.use('/uploads',express.static('uploads'));
 let connection=async()=>{ 
