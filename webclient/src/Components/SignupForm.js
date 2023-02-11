@@ -19,7 +19,8 @@ function SignupForm() {
         let rawData=await fetch('/signUp',reqOptions); 
         let convertedData=await rawData.json();
         console.log(convertedData); 
-        alert(convertedData.status); 
+        alert(convertedData.status);  
+        
     }
   return (
     <div>
